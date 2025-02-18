@@ -123,7 +123,7 @@ const MainPage = () => {
             key={option.value}
             className={`text-sm font-medium transition ${
               tripType === option.value
-                ? "text-red-500 border-b-2 border-red-500"
+                ? "text-yellow-500 border-b-2 border-yellow-500"
                 : "text-gray-700"
             }`}
             onClick={() => setTripType(option.value)}
@@ -157,11 +157,11 @@ const MainPage = () => {
       </div>
 
       {/* Experience Section */}
-      <div className="bg-white py-12 px-8 shadow-lg w-full ">
+      <div className="bg-white py-8 px-8 shadow-lg w-full ">
         <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent">
           Experience the art of travel with ASR Aviation
         </h1>
-        <p className="mt-8 text-lg text-gray-700 max-w-screen-lg mx-auto text-left">
+        <p className="mt-6 text-lg text-gray-700 max-w-screen-lg mx-auto text-left">
           Indulge in the epitome of luxury travel with ASR AVIATION. Experience a
           world where opulence meets convenience as you embark on journeys
           tailored to exceed your every expectation. With our premium fleet of
@@ -171,8 +171,8 @@ const MainPage = () => {
       </div>
 
       {/* Exclusive Services Section */}
-      <div className="bg-white py-16 px-8">
-        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent mb-12">
+      <div className="bg-white py-10 px-10">
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent mb-8">
           Exclusive Services
         </h1>
         <div className="flex items-center space-x-8">
