@@ -6,6 +6,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import Seat from "./pages/Seat";
+import Form from "./pages/Form";
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/seat" element={<Seat />} />
+            <Route path="/form" element={<Form />} />
           </Routes>
         </main>
         <Footer />

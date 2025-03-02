@@ -17,8 +17,7 @@ const AboutUs = () => {
           />
           <h2 className="text-3xl font-semibold text-gray-800 mt-6">Our Expertise</h2>
           <p className="text-lg text-gray-600 mt-4">
-            At ASR Aviation, we redefine the concept of travel by offering unparalleled private jet services that cater to your every need. Whether you're seeking a luxurious joyride experience or planning a seamless business trip, we are committed to providing you with the best deals and a high-end luxury experience that exceeds your expectations.
-          </p>
+          At ASR Aviation, we redefine travel with unparalleled private jet services tailored to your needs. Whether it's a luxurious joyride or a seamless business trip, we offer exclusive deals and a first-class experience that exceeds expectations.          </p>
         </div>
 
         {/* Right Side - Our Approach */}
@@ -30,8 +29,7 @@ const AboutUs = () => {
           />
           <h2 className="text-3xl font-semibold text-gray-800 mt-6">Our Approach</h2>
           <p className="text-lg text-gray-600 mt-4">
-            Our approach to consultancy is based on a deep understanding of the aviation industry and the challenges that our clients face. We combine our expertise with cutting-edge technology to deliver innovative solutions that drive success.
-          </p>
+          With deep aviation industry expertise, we understand the challenges our clients face. By combining industry knowledge with cutting-edge technology, we deliver innovative solutions that ensure efficiency, luxury, and success in every journey.          </p>
         </div>
       </div>
 
@@ -47,24 +45,21 @@ const AboutUs = () => {
         <div className="text-center bg-white p-8 border border-gray-300 shadow-md rounded-lg">
           <h3 className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text text-2xl font-semibold text-[#9C7167] mb-4">Who We Are</h3>
           <p className="text-lg text-gray-700 leading-relaxed">
-            At ASR Aviaiton, we are a team of experienced aviation consultants dedicated to providing top-notch consulting services to our clients. We pride ourselves on our attention to detail and our ability to deliver results that exceed expectations.
-          </p>
+          At ASR Aviation, we are a team of experienced aviation consultants, dedicated to providing top-tier consulting services. We pride ourselves on our attention to detail and our ability to deliver results that consistently exceed expectations.          </p>
         </div>
 
         {/* Column 2 - What We Do */}
         <div className="text-center bg-white p-8 border border-gray-300 shadow-md rounded-lg">
           <h3 className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text text-2xl font-semibold text-[#9C7167] mb-4">What We Do</h3>
           <p className="text-lg text-gray-700 leading-relaxed">
-            We offer a range of aviation services, including Private Charters, Business Flights, Air Joyrides, Air Ambulance, Aircraft Management, and Aviation Finance. We work closely with our clients to understand their needs and provide customized solutions that meet their unique requirements.
-          </p>
+          We offer a range of aviation services, including Private Charters, Business Flights, Air Joyrides, Air Ambulance, Aircraft Management, and Aviation Finance. By working closely with our clients, we gain a deep understanding of their needs and deliver customized solutions that meet their unique requirements with precision and care.          </p>
         </div>
 
         {/* Column 3 - Our Experience */}
         <div className="text-center bg-white p-8 border border-gray-300 shadow-md rounded-lg">
           <h3 className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text text-2xl font-semibold text-[#9C7167] mb-4">Our Experience</h3>
           <p className="text-lg text-gray-700 leading-relaxed">
-            Our team has decades of combined experience in the aviation industry, and we have worked with clients around the world. We have a deep understanding of the complexities of the aviation market and a proven track record of success. Have a look at our community.
-          </p>
+          With decades of combined experience in the aviation industry, our team has worked with clients globally. We have a deep understanding of the aviation market and a proven track record of delivering successful results. Take a look at our community and see how we’ve made a difference.          </p>
         </div>
       </div>
 
@@ -88,8 +83,7 @@ const AboutUs = () => {
           <div>
             <h3 className="text-2xl font-semibold text-gray-800">Anirudh Singh Chauhan (Managing Director - ASR Aviation )</h3>
             <p className="text-lg text-gray-700 mt-4">
-              Meet our founder Anirudh, who is highly passionate about the aviation industry. He aims to make ASR Aviaiton India one of the biggest brands in the aviation sector. His emphasis on technology and innovation has made ASR Aviation one of the most trusted aircraft service providers in India, proving that relentless focus on customer needs can drive business success.
-            </p>
+            Meet our founder, Anirudh, whose passion for the aviation industry drives ASR Aviation to new heights. With a vision to make ASR Aviation one of the leading brands in the sector, Anirudh's focus on technology and innovation has helped establish ASR as one of the most trusted aircraft service providers in India. His relentless dedication to understanding and addressing customer needs has played a key role in driving our success, ensuring that every flight experience exceeds expectations.            </p>
           </div>
 
           {/* Right Side - Founder Image */}
