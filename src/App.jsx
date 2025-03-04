@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/MainPage";
-import Fleet from "./pages/Fleet"; 
+import Fleet from "./pages/Fleet";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Footer from "./components/Footer";
 import Seat from "./pages/Seat";
 import Form from "./pages/Form";
+
 function App() {
   return (
     <Router>
@@ -15,7 +16,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/fleet" element={<Fleet />} /> {/* Add this route */}
+            <Route path="/fleet" element={<Fleet />} /> Add this route
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/seat" element={<Seat />} />

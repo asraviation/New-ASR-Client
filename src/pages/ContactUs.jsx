@@ -1,7 +1,50 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    companyName: "",
+    departureCity: "",
+    arrivalCity: "",
+    departureDate: "",
+    returnDate: "",
+    phoneNumber: "",
+    foodPreferences: "",
+    numberOfPassengers: "",
+  });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_jo4e5on", //make them private later
+        "template_ijx9gmd", //template code from email js
+        formData,
+        "Uq8Fcb7NfLgt1b9_Q" //public api from email js
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          setIsSubmitted(true);
+        },
+        (error) => {
+          console.error("FAILED...", error);
+        }
+      );
+  };
 
   return (
     <section className="my-20 font-sans font-thin">
@@ -13,20 +56,122 @@ const ContactUs = () => {
         </p>
       </div>
 
-      {/* Embed Google Form */}
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSc-_vBk69T_KyKpVnhVpseTdtrXw7HT7wSFpDYJb7cdP5dOpA/viewform?usp=dialog"
-        width="640"
-        height="1500"
-        frameBorder="0"
-        marginHeight="0"
-        marginWidth="0"
-        title="Contact Us Form"
-      >
-        Loading…
-      </iframe>
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+        <div className="mb-4">
+          <label className="block text-gray-700">Name *</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Email *</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Company Name</label>
+          <input
+            type="text"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Departure City *</label>
+          <input
+            type="text"
+            name="departureCity"
+            value={formData.departureCity}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Arrival City *</label>
+          <input
+            type="text"
+            name="arrivalCity"
+            value={formData.arrivalCity}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Departure Date *</label>
+          <input
+            type="date"
+            name="departureDate"
+            value={formData.departureDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Return Date</label>
+          <input
+            type="date"
+            name="returnDate"
+            value={formData.returnDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Phone Number *</label>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Food Preferences</label>
+          <input
+            type="text"
+            name="foodPreferences"
+            value={formData.foodPreferences}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Number of Passengers *</label>
+          <input
+            type="number"
+            name="numberOfPassengers"
+            value={formData.numberOfPassengers}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
+        >
+          Submit
+        </button>
+      </form>
 
-      {/* Thank You Pop-Up */}
       {isSubmitted && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg text-center">

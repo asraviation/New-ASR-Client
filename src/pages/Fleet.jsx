@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { images } from "../image";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Fleet = () => {
   const [expandedCard, setExpandedCard] = useState(null);
@@ -106,22 +111,70 @@ const Fleet = () => {
     },
   ];
 
+  const headerRef = useRef(null);
+  const headerh1Ref = useRef(null);
+  const fleetCardRefs = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl5 = gsap.timeline();
+
+      tl5.from([headerRef.current], {
+        opacity: 0,
+        y: -20,
+        duration: 0.5,
+        ease: "sine.out",
+      });
+
+      tl5.from([headerh1Ref.current], {
+        opacity: 0,
+        y: -20,
+        duration: 0.5,
+        ease: "sine.out",
+      });
+
+      fleetCardRefs.current.forEach((ref, index) => {
+        if (ref) {
+          tl5.from(ref, {
+            opacity: 0,
+            y: -20,
+            duration: 0.6,
+            ease: "power.out",
+            stagger: 0.1,
+          });
+        }
+      });
+    });
+    ScrollTrigger.refresh();
+    ScrollTrigger.clearScrollMemory();
+    return () => ctx.revert(); // Cleanup animation context
+  }, []);
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="p-2 relative w-full h-48">
         <img
+          ref={headerRef}
           src={images.header}
           alt="Header"
           className="w-full h-full object-cover rounded-lg"
         />
       </div>
-      <h1 className="text-4xl font-thin text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-400 text-center mt-6">
+      <h1
+        className="text-4xl font-thin text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-400 text-center mt-6"
+        ref={headerh1Ref}
+      >
         Our Fleets
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {fleetData.map((fleet) => (
+        {fleetData.map((fleet, index) => (
           <div
             key={fleet.id}
+            ref={(el) => {
+              if (el) {
+                fleetCardRefs.current[index] = el;
+              }
+            }}
             className="bg-white shadow-lg rounded-lg p-4 relative"
             onMouseEnter={() => setActiveCarousel(fleet.id)}
             onMouseLeave={() => setActiveCarousel(null)}
@@ -132,7 +185,7 @@ const Fleet = () => {
                 showArrows={true}
                 showIndicators={true}
                 infiniteLoop
-                autoPlay={expandedCard === fleet.id} // Only autoplay if this card is expanded
+                autoPlay={expandedCard === fleet.id}
                 interval={3000}
                 stopOnHover
               >
