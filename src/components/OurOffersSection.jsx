@@ -10,84 +10,55 @@ import offer3 from "../images/offer3.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const OurOffersSection = () => {
+  const sectionRef = useRef(null);
   const offerRef1 = useRef(null);
   const offerRef2 = useRef(null);
   const offerRef3 = useRef(null);
   const offerparaRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline();
-    tl.play();
-
     const ctx = gsap.context(() => {
-      tl.from([offerRef1.current], {
+      // Single scrollTrigger for all offer images
+      gsap.from([offerRef1.current, offerRef2.current, offerRef3.current], {
         opacity: 0,
         x: -100,
-        duration: 0.5,
+        duration: 1,
         ease: "sine.out",
         stagger: 0.2,
         scrollTrigger: {
-          trigger: offerRef1.current,
-          start: "top 50%",
-          end: "top 5%",
-          scrub: 1,
+          trigger: sectionRef.current,
+          start: "top bottom", // starts when top of section enters bottom of viewport
+          end: "center center", // ends when center of section reaches center of viewport
+          scrub: true,
           toggleActions: "play none none reverse",
+          // markers: true, // uncomment for debugging
         },
       });
 
-      tl.from([offerRef2.current], {
+      // Paragraph animation
+      gsap.from(offerparaRef.current, {
         opacity: 0,
-        x: -100,
-        duration: 0.5,
-        ease: "sine.out",
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: offerRef2.current,
-          start: "top 50%",
-          end: "top 5%",
-          scrub: 1,
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      tl.from([offerRef3.current], {
-        opacity: 0,
-        x: -100,
-        duration: 0.5,
-        ease: "sine.out",
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: offerRef3.current,
-          start: "top 50%",
-          end: "top 5%",
-          scrub: 1,
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      tl.from([offerparaRef.current], {
-        opacity: 0,
-        x: -400,
-        duration: 0.5,
+        y: 50, // Changed from x to y for better visual effect
+        duration: 1,
         ease: "sine.out",
         scrollTrigger: {
           trigger: offerparaRef.current,
-          start: "top 100%",
-          end: "top 35%",
-          scrub: 1,
+          start: "top bottom",
+          end: "bottom 70%",
+          scrub: true,
           toggleActions: "play none none reverse",
+          // markers: true, // uncomment for debugging
         },
       });
     });
 
     return () => {
       ctx.revert();
-      tl.kill();
     };
   }, []);
 
   return (
-    <div className="bg-white py-16 px-8">
+    <div className="bg-white py-16 px-8" ref={sectionRef}>
       <div className="flex justify-center space-x-8">
         <div className="w-[300px] h-[300px] bg-gray-100 rounded-lg overflow-hidden shadow-lg">
           <img
