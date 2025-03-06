@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import emailjs from "emailjs-com";
 
 const ContactUs = () => {
@@ -177,7 +177,7 @@ const ContactUs = () => {
           <div className="bg-white p-6 rounded shadow-lg text-center">
             <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
             <p>
-              Your submission has been received. We'll get back to you soon.
+              Your submission has been received. We&apos;ll get back to you soon.
             </p>
             <button
               onClick={() => setIsSubmitted(false)}
