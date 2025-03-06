@@ -30,10 +30,10 @@ const ContactUs = () => {
 
     emailjs
       .send(
-        "service_jo4e5on", //make them private later
-        "template_ijx9gmd", //template code from email js
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formData,
-        "Uq8Fcb7NfLgt1b9_Q" //public api from email js
+        import.meta.env.VITE_EMAILJS_USER_ID
       )
       .then(
         (response) => {
