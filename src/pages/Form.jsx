@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import emailjs from "emailjs-com";
 
-const Form = () => {
+const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,10 +30,10 @@ const Form = () => {
 
     emailjs
       .send(
-        "service_jo4e5on", //make them private later
-        "template_ijx9gmd", //template code from email js
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formData,
-        "Uq8Fcb7NfLgt1b9_Q" //public api from email js
+        import.meta.env.VITE_EMAILJS_USER_ID
       )
       .then(
         (response) => {
@@ -49,7 +49,11 @@ const Form = () => {
   return (
     <section className="my-20 font-sans font-thin">
       <div className="text-center mb-12">
-        <h1 className="font-sans text-5xl mb-10 bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text">Drop Your Charter Query</h1>
+        <h1 className="font-sans text-center text-5xl mb-10">CONTACT US</h1>
+        <p className="text-xl text-black mb-10">
+          Reach out to us with your queries or requests, and our team will get
+          back to you promptly.
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
@@ -162,7 +166,7 @@ const Form = () => {
         </div>
         <button
           type="submit"
-          className="bg-yellow-500 text-white font-semibold py-2 rounded-lg w-full hover:bg-yellow-600 transition"
+          className="w-full bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
         >
           Submit
         </button>
@@ -173,7 +177,7 @@ const Form = () => {
           <div className="bg-white p-6 rounded shadow-lg text-center">
             <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
             <p>
-              Your submission has been received. We'll get back to you soon.
+              Your submission has been received. We&apos;ll get back to you soon.
             </p>
             <button
               onClick={() => setIsSubmitted(false)}
@@ -188,4 +192,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default ContactUs;

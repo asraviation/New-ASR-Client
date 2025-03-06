@@ -38,11 +38,11 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="w-full h-auto relative">
+    <div className="w-screen h-auto relative">
       <img
         src={aircraftImage}
         alt="Aircraft"
-        className="w-full h-auto object-contain objecct-right"
+        className="w-screen h-auto  m-0 p-0 object-contain"
       />
 
       <div
