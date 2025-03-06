@@ -161,7 +161,7 @@ const Fleet = () => {
         />
       </div>
       <h1
-        className="text-4xl font-thin text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-400 text-center mt-6"
+        className="text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-400 text-center mt-6"
         ref={headerh1Ref}
       >
         Our Fleets

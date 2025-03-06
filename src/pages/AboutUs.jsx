@@ -164,7 +164,7 @@ const AboutUs = () => {
             alt="Our Expertise"
             className="w-full h-[350px] object-cover rounded-lg shadow-md"
           />
-          <h2 className="text-3xl font-semibold text-gray-800 mt-6">
+          <h2 className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text text-3xl font-semibold text-gray-800 mt-6">
             Our Expertise
           </h2>
           <p className="text-lg text-gray-600 mt-4">
@@ -182,7 +182,7 @@ const AboutUs = () => {
             alt="Our Approach"
             className="w-full h-[350px] object-cover rounded-lg shadow-md"
           />
-          <h2 className="text-3xl font-semibold text-gray-800 mt-6">
+          <h2 className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text text-3xl font-semibold text-gray-800 mt-6">
             Our Approach
           </h2>
           <p className="text-lg text-gray-600 mt-4">
