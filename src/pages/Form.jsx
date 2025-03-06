@@ -1,52 +1,180 @@
 import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
 const Form = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    companyName: "",
+    departureCity: "",
+    arrivalCity: "",
+    departureDate: "",
+    returnDate: "",
+    phoneNumber: "",
+    foodPreferences: "",
+    numberOfPassengers: "",
+  });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
+
+    emailjs
+      .send(
+        "service_jo4e5on", //make them private later
+        "template_ijx9gmd", //template code from email js
+        formData,
+        "Uq8Fcb7NfLgt1b9_Q" //public api from email js
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          setIsSubmitted(true);
+        },
+        (error) => {
+          console.error("FAILED...", error);
+        }
+      );
   };
 
   return (
-    <section className="my-20 font-sans font-thin max-w-4xl mx-auto">
+    <section className="my-20 font-sans font-thin">
       <div className="text-center mb-12">
-        <h1 className="font-sans text-5xl mb-10">Drop Your Charter Query!</h1>
+        <h1 className="font-sans text-5xl mb-10 bg-gradient-to-r from-yellow-500 to-yellow-400 text-transparent bg-clip-text">Drop Your Charter Query</h1>
       </div>
 
-      {/* Charter Query Form */}
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left Column */}
-        <div className="flex flex-col space-y-4">
-          <input type="text" placeholder="From *" className="input-field" required />
-          <input type="text" placeholder="To *" className="input-field" required />
-          <input type="date" placeholder="Journey Date *" className="input-field" required />
-          <input type="time" placeholder="Time *" className="input-field" required />
-          <input type="number" placeholder="No. of Pax *" className="input-field" required />
-          <input type="text" placeholder="Name *" className="input-field" required />
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+        <div className="mb-4">
+          <label className="block text-gray-700">Name *</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
         </div>
-
-        {/* Right Column */}
-        <div className="flex flex-col space-y-4">
-          <input type="tel" placeholder="Phone (WhatsApp) *" className="input-field" required />
-          <input type="email" placeholder="Email *" className="input-field" required />
-          <textarea placeholder="Any Special Requirements" rows="5" className="input-field"></textarea>
+        <div className="mb-4">
+          <label className="block text-gray-700">Email *</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
         </div>
-
-        {/* Submit Button */}
-        <div className="md:col-span-2 text-center mt-4">
-          <button type="submit" className="bg-yellow-500 text-white py-3 px-6 rounded-md shadow-md hover:bg-yellow-600 transition">
-            SUBMIT
-          </button>
+        <div className="mb-4">
+          <label className="block text-gray-700">Company Name</label>
+          <input
+            type="text"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
         </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Departure City *</label>
+          <input
+            type="text"
+            name="departureCity"
+            value={formData.departureCity}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Arrival City *</label>
+          <input
+            type="text"
+            name="arrivalCity"
+            value={formData.arrivalCity}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Departure Date *</label>
+          <input
+            type="date"
+            name="departureDate"
+            value={formData.departureDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Return Date</label>
+          <input
+            type="date"
+            name="returnDate"
+            value={formData.returnDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Phone Number *</label>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Food Preferences</label>
+          <input
+            type="text"
+            name="foodPreferences"
+            value={formData.foodPreferences}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Number of Passengers *</label>
+          <input
+            type="number"
+            name="numberOfPassengers"
+            value={formData.numberOfPassengers}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-yellow-500 text-white font-semibold py-2 rounded-lg w-full hover:bg-yellow-600 transition"
+        >
+          Submit
+        </button>
       </form>
 
-      {/* Thank You Pop-Up */}
       {isSubmitted && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg text-center">
             <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
-            <p>Your submission has been received. We'll get back to you soon.</p>
+            <p>
+              Your submission has been received. We'll get back to you soon.
+            </p>
             <button
               onClick={() => setIsSubmitted(false)}
               className="mt-4 bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
@@ -56,23 +184,6 @@ const Form = () => {
           </div>
         </div>
       )}
-
-      {/* Tailwind Styles for Inputs */}
-      <style jsx>{`
-        .input-field {
-          border: 1px solid #e0e0e0;
-          padding: 12px;
-          border-radius: 6px;
-          font-size: 14px;
-          width: 100%;
-          background-color: #f9f9f9;
-        }
-        .input-field:focus {
-          outline: none;
-          border-color: #000;
-          background-color: white;
-        }
-      `}</style>
     </section>
   );
 };
