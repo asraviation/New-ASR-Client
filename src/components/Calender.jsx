@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const Calendar = ({ onSelectDate }) => {
-  // Get current date information
+const Calendar = ({ onSelectDate, initialSelectedDate }) => {
   const today = new Date();
-  const currentDay = today.getDate();
 
-  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-  const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const [selectedDate, setSelectedDate] = useState(currentDay);
+  const [selectedDateObj, setSelectedDateObj] = useState(() => {
+    const savedDate = localStorage.getItem("calendar_selected_date");
+    if (savedDate) {
+      return new Date(savedDate);
+    }
+    return initialSelectedDate || new Date();
+  });
+
+  const [currentMonth, setCurrentMonth] = useState(selectedDateObj.getMonth());
+  const [currentYear, setCurrentYear] = useState(selectedDateObj.getFullYear());
+  const [selectedDate, setSelectedDate] = useState(selectedDateObj.getDate());
 
   const months = [
     "January",
@@ -27,12 +33,15 @@ const Calendar = ({ onSelectDate }) => {
 
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-  // Initialize with current month/year when component mounts
   useEffect(() => {
-    setCurrentMonth(today.getMonth());
-    setCurrentYear(today.getFullYear());
-    setSelectedDate(currentDay);
-  }, []);
+    setCurrentMonth(selectedDateObj.getMonth());
+    setCurrentYear(selectedDateObj.getFullYear());
+    setSelectedDate(selectedDateObj.getDate());
+  }, [selectedDateObj]);
+
+  useEffect(() => {
+    localStorage.setItem("calendar_selected_date", selectedDateObj.toString());
+  }, [selectedDateObj]);
 
   const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
@@ -44,7 +53,11 @@ const Calendar = ({ onSelectDate }) => {
 
   const handleSelectDate = (day) => {
     setSelectedDate(day);
-    // Pass the selected date up to the parent component if the callback exists
+    const newSelectedDate = new Date(currentYear, currentMonth, day);
+    setSelectedDateObj(newSelectedDate);
+
+    localStorage.setItem("calendar_selected_date", newSelectedDate.toString());
+
     if (onSelectDate) {
       onSelectDate(currentYear, currentMonth, day);
     }
@@ -56,23 +69,21 @@ const Calendar = ({ onSelectDate }) => {
 
     const days = [];
 
-    // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="w-8 h-8"></div>);
     }
 
-    // Add cells for each day of the month
     for (let day = 1; day <= daysInMonth; day++) {
-      // Check if this day is today - compare full date including month and year
       const isToday =
         day === today.getDate() &&
         currentMonth === today.getMonth() &&
         currentYear === today.getFullYear();
 
-      // Check if this is the selected day
-      const isSelected = (day === selectedDate && currentMonth === today.getMonth() && currentYear === today.getFullYear());
+      const isSelected =
+        day === selectedDateObj.getDate() &&
+        currentMonth === selectedDateObj.getMonth() &&
+        currentYear === selectedDateObj.getFullYear();
 
-      // Check if this is a past day (disabled)
       const isPastDay =
         new Date(currentYear, currentMonth, day) <
         new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -110,11 +121,8 @@ const Calendar = ({ onSelectDate }) => {
       newYear = currentYear;
     }
 
-    // Get days in new month to ensure valid date selection
     const daysInNewMonth = getDaysInMonth(newMonth, newYear);
 
-    // If currently selected date is greater than days in new month,
-    // adjust selected date to last day of new month
     const newSelectedDate =
       selectedDate > daysInNewMonth ? daysInNewMonth : selectedDate;
 
@@ -134,11 +142,8 @@ const Calendar = ({ onSelectDate }) => {
       newYear = currentYear;
     }
 
-    // Get days in new month to ensure valid date selection
     const daysInNewMonth = getDaysInMonth(newMonth, newYear);
 
-    // If currently selected date is greater than days in new month,
-    // adjust selected date to last day of new month
     const newSelectedDate =
       selectedDate > daysInNewMonth ? daysInNewMonth : selectedDate;
 
@@ -201,8 +206,6 @@ const Calendar = ({ onSelectDate }) => {
       </div>
 
       <div className="grid grid-cols-7 gap-1">{renderCalendarDays()}</div>
-
-      {/* Selected Date Display */}
       <div className="mt-4 pt-3 border-t border-gray-100 text-xs text-center">
         {selectedDate ? (
           <div className="flex flex-col items-center">
@@ -221,6 +224,7 @@ const Calendar = ({ onSelectDate }) => {
 
 Calendar.propTypes = {
   onSelectDate: PropTypes.func,
+  initialSelectedDate: PropTypes.instanceOf(Date),
 };
 
 export default Calendar;

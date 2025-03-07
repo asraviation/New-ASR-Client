@@ -120,11 +120,8 @@ const HeroSection = () => {
     });
   };
 
-  const handleDateSelection = (year, month, day, formattedDate, isoDate) => {
-    // Use the formatted date for display and the ISO date for data processing
+  const handleDateSelection = (year, month, day, formattedDate) => {
     setDateValue(formattedDate);
-    // You can store the ISO date in a separate state variable if needed for API calls
-    // setIsoDateValue(isoDate);
     setShowCalendar(false);
   };
 
@@ -366,23 +363,17 @@ const HeroSection = () => {
   );
 };
 
-// Wrapper component to adapt Calendar component to our needs
 const CalendarWrapper = ({ onSelectDate }) => {
   const handleDateSelected = (year, month, day) => {
-    // Create a date object with the selected date
     const selectedDate = new Date(year, month, day);
-
-    // Format the date in a more user-friendly way (e.g., "Jan 15, 2023")
     const formattedDate = selectedDate.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
 
-    // Also create the ISO string format for data processing
     const isoDate = selectedDate.toISOString().split("T")[0]; // YYYY-MM-DD
 
-    // Pass both formats to the parent component
     onSelectDate(year, month, day, formattedDate, isoDate);
   };
 
