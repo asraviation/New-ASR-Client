@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import gsap from "gsap";
+import Calendar from "./Calender";
 
 // Using your existing icon imports
 import aircraftImage from "../images/air.png";
@@ -16,11 +18,13 @@ const HeroSection = () => {
   const [dateValue, setDateValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("charter");
   const [tripType, setTripType] = useState("one-way");
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const mainRef = useRef(null);
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
   const swapIconRef = useRef(null);
+  const calendarRef = useRef(null);
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -36,7 +40,16 @@ const HeroSection = () => {
       });
     });
 
+    // Add click outside listener to close calendar
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowCalendar(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
       ctx.revert();
       tl.kill();
     };
@@ -105,6 +118,18 @@ const HeroSection = () => {
       rotation: 0,
       delay: 0.1,
     });
+  };
+
+  const handleDateSelection = (year, month, day, formattedDate, isoDate) => {
+    // Use the formatted date for display and the ISO date for data processing
+    setDateValue(formattedDate);
+    // You can store the ISO date in a separate state variable if needed for API calls
+    // setIsoDateValue(isoDate);
+    setShowCalendar(false);
+  };
+
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
   };
 
   return (
@@ -305,14 +330,24 @@ const HeroSection = () => {
                 />
               </div>
               <input
-                type="date"
-                placeholder="Today"
+                type="text"
+                placeholder="Select date"
                 className="w-full h-12 pl-12 pr-4 bg-gray-50 rounded-lg border-2 border-transparent 
                           focus:border-[rgba(246,226,150,1)] focus:ring-0 focus:outline-none focus:bg-white 
-                          transition-all duration-200 hover:bg-gray-100 appearance-none"
+                          transition-all duration-200 hover:bg-gray-100 cursor-pointer"
                 value={dateValue}
-                onChange={(e) => setDateValue(e.target.value)}
+                onClick={toggleCalendar}
+                readOnly
               />
+              {showCalendar && (
+                <div
+                  ref={calendarRef}
+                  className="absolute top-full left-0 mt-2 z-50"
+                  style={{ width: "280px" }}
+                >
+                  <CalendarWrapper onSelectDate={handleDateSelection} />
+                </div>
+              )}
             </div>
 
             {/* Book Now Button */}
@@ -329,6 +364,32 @@ const HeroSection = () => {
       </div>
     </div>
   );
+};
+
+// Wrapper component to adapt Calendar component to our needs
+const CalendarWrapper = ({ onSelectDate }) => {
+  const handleDateSelected = (year, month, day) => {
+    // Create a date object with the selected date
+    const selectedDate = new Date(year, month, day);
+
+    // Format the date in a more user-friendly way (e.g., "Jan 15, 2023")
+    const formattedDate = selectedDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
+    // Also create the ISO string format for data processing
+    const isoDate = selectedDate.toISOString().split("T")[0]; // YYYY-MM-DD
+
+    // Pass both formats to the parent component
+    onSelectDate(year, month, day, formattedDate, isoDate);
+  };
+
+  return <Calendar onSelectDate={handleDateSelected} />;
+};
+CalendarWrapper.propTypes = {
+  onSelectDate: PropTypes.func.isRequired,
 };
 
 export default HeroSection;
