@@ -278,7 +278,7 @@ const HeroSection = () => {
   }, [showCalendar]);
 
   return (
-    <div className="w-full h-screen relative overflow-hidden">
+    <div className="w-full h-screen relative">
       {/* Background Image - Full private jet with mountains */}
       <img
         ref={backgroundRef}
@@ -290,7 +290,7 @@ const HeroSection = () => {
       {/* Content Container */}
       <div
         ref={mainRef}
-        className="absolute inset-0 flex items-center justify-center px-4"
+        className="absolute inset-0 top-52 flex items-center justify-center px-4"
       >
         {/* Booking Panel */}
         <div

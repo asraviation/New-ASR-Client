@@ -153,7 +153,7 @@ const Calendar = ({ onSelectDate, initialSelectedDate }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-4 border border-gray-100 w-64 transition-all">
+    <div className="relative z-[100] bg-white rounded-xl shadow-lg p-4 border border-gray-100 w-64 transition-all">
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={handlePrevMonth}
