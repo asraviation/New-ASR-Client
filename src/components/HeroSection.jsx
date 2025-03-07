@@ -25,18 +25,126 @@ const HeroSection = () => {
   const toInputRef = useRef(null);
   const swapIconRef = useRef(null);
   const calendarRef = useRef(null);
+  const backgroundRef = useRef(null);
+  const bookingPanelRef = useRef(null);
+  const topRowRef = useRef(null);
+  const bottomRowRef = useRef(null);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
+    // Main timeline for initial animation sequence
     const tl = gsap.timeline();
-    tl.play();
 
     const ctx = gsap.context(() => {
-      tl.from([mainRef.current], {
+      // Background subtle zoom animation
+      gsap.to(backgroundRef.current, {
+        scale: 1.05,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+        yoyo: true,
+      });
+
+      // Main panel entrance animation
+      tl.from(bookingPanelRef.current, {
+        y: 30,
         opacity: 0,
-        y: -20,
-        duration: 0.5,
-        ease: "sine.out",
-        stagger: 0.2,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+
+      // Top row elements animation
+      tl.from(
+        topRowRef.current.children,
+        {
+          opacity: 0,
+          y: -15,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+        },
+        "-=0.4"
+      );
+
+      // Bottom row elements animation
+      tl.from(
+        bottomRowRef.current.children,
+        {
+          opacity: 0,
+          y: 15,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+        },
+        "-=0.3"
+      );
+
+      // Button special animation
+      tl.from(
+        buttonRef.current,
+        {
+          scale: 0.9,
+          opacity: 0,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.5)",
+        },
+        "-=0.2"
+      );
+
+      // Create hover effect for swap button
+      swapIconRef.current.addEventListener("mouseenter", () => {
+        gsap.to(swapIconRef.current, {
+          rotation: 45,
+          scale: 1.1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      swapIconRef.current.addEventListener("mouseleave", () => {
+        gsap.to(swapIconRef.current, {
+          rotation: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.in",
+        });
+      });
+
+      // Create hover effects for input fields
+      const inputContainers = bottomRowRef.current.querySelectorAll(".group");
+      inputContainers.forEach((container) => {
+        container.addEventListener("mouseenter", () => {
+          gsap.to(container, {
+            y: -3,
+            duration: 0.2,
+            ease: "power2.out",
+          });
+        });
+
+        container.addEventListener("mouseleave", () => {
+          gsap.to(container, {
+            y: 0,
+            duration: 0.2,
+            ease: "power2.in",
+          });
+        });
+      });
+
+      // Button hover animation
+      buttonRef.current.addEventListener("mouseenter", () => {
+        gsap.to(buttonRef.current, {
+          scale: 1.05,
+          duration: 0.2,
+          ease: "power1.out",
+        });
+      });
+
+      buttonRef.current.addEventListener("mouseleave", () => {
+        gsap.to(buttonRef.current, {
+          scale: 1,
+          duration: 0.2,
+          ease: "power1.in",
+        });
       });
     });
 
@@ -60,37 +168,38 @@ const HeroSection = () => {
     const tempTo = toValue;
     const tl = gsap.timeline();
 
-    // Animate the swap icon with a continuous rotation
+    // Enhanced swap animation with more flair
     tl.to(swapIconRef.current, {
-      duration: 0.6,
+      duration: 0.4,
       rotation: 180,
-      ease: "power2.inOut",
+      scale: 1.2,
+      ease: "back.out(1.7)",
     });
 
-    // Animate the from input
+    // Animate the from input with more dramatic motion
     tl.to(
       fromInputRef.current.parentElement,
       {
-        duration: 0.4,
+        duration: 0.35,
         x: 20,
         opacity: 0,
         scale: 0.95,
-        ease: "power2.inOut",
+        ease: "power3.inOut",
       },
-      "-=0.5"
+      "-=0.3"
     );
 
-    // Animate the to input
+    // Animate the to input with more dramatic motion
     tl.to(
       toInputRef.current.parentElement,
       {
-        duration: 0.4,
+        duration: 0.35,
         x: -20,
         opacity: 0,
         scale: 0.95,
-        ease: "power2.inOut",
+        ease: "power3.inOut",
       },
-      "-=0.4"
+      "-=0.3"
     );
 
     // Swap values
@@ -99,7 +208,7 @@ const HeroSection = () => {
       setToValue(tempFrom);
     });
 
-    // Bring back the inputs with new values
+    // Bring back the inputs with new values with elastic feel
     tl.to(
       [fromInputRef.current.parentElement, toInputRef.current.parentElement],
       {
@@ -107,32 +216,72 @@ const HeroSection = () => {
         x: 0,
         opacity: 1,
         scale: 1,
-        ease: "power2.out",
+        ease: "elastic.out(1, 0.75)",
         stagger: 0.1,
       }
     );
 
     // Reset the swap icon rotation smoothly
     tl.to(swapIconRef.current, {
-      duration: 0,
+      scale: 1,
+      duration: 0.3,
       rotation: 0,
       delay: 0.1,
+      ease: "power2.inOut",
     });
   };
 
   const handleDateSelection = (year, month, day, formattedDate) => {
     setDateValue(formattedDate);
+
+    // Add a nice confirmation animation
+    const dateInput = document.querySelector(
+      'input[placeholder="Select date"]'
+    );
+    gsap.fromTo(
+      dateInput,
+      { backgroundColor: "rgba(236, 252, 203, 0.8)" },
+      {
+        backgroundColor: "rgba(249, 250, 251, 1)",
+        duration: 1,
+        ease: "power2.out",
+      }
+    );
+
     setShowCalendar(false);
   };
 
   const toggleCalendar = () => {
-    setShowCalendar(!showCalendar);
+    if (!showCalendar) {
+      setShowCalendar(true);
+      // Calendar open animation will be handled in the useEffect of component
+    } else {
+      // Calendar close animation
+      gsap.to(calendarRef.current, {
+        y: 10,
+        opacity: 0,
+        duration: 0.2,
+        onComplete: () => setShowCalendar(false),
+      });
+    }
   };
+
+  // Effect to animate calendar when it appears
+  useEffect(() => {
+    if (showCalendar && calendarRef.current) {
+      gsap.fromTo(
+        calendarRef.current,
+        { y: -10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }
+      );
+    }
+  }, [showCalendar]);
 
   return (
     <div className="w-full h-screen relative overflow-hidden">
       {/* Background Image - Full private jet with mountains */}
       <img
+        ref={backgroundRef}
         src={aircraftImage}
         alt="Private Jet with Mountain Backdrop"
         className="absolute w-full h-full object-cover"
@@ -144,9 +293,15 @@ const HeroSection = () => {
         className="absolute inset-0 flex items-center justify-center px-4"
       >
         {/* Booking Panel */}
-        <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-lg p-8 w-full max-w-5xl">
+        <div
+          ref={bookingPanelRef}
+          className="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-lg p-8 w-full max-w-5xl"
+        >
           {/* Top Row: Charter/Seat Selection and Trip Type */}
-          <div className="flex justify-between items-center mb-8">
+          <div
+            ref={topRowRef}
+            className="flex justify-between items-center mb-8"
+          >
             {/* Charter & Seat Selection */}
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-2 cursor-pointer">
@@ -244,7 +399,7 @@ const HeroSection = () => {
           </div>
 
           {/* Bottom Row: Input Fields and Button */}
-          <div className="grid grid-cols-4 gap-12 relative">
+          <div ref={bottomRowRef} className="grid grid-cols-4 gap-12 relative">
             {/* Where from? */}
             <div className="relative group" style={{ zIndex: 20 }}>
               <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
@@ -274,7 +429,7 @@ const HeroSection = () => {
               <button
                 ref={swapIconRef}
                 onClick={handleSwap}
-                className="bg-white rounded-full p-2  transition-all duration-200 focus:outline-none"
+                className="bg-white rounded-full p-2 transition-all duration-200 focus:outline-none"
                 aria-label="Swap destinations"
               >
                 <svg
@@ -350,6 +505,7 @@ const HeroSection = () => {
             {/* Book Now Button */}
             <Link to="/form" className="block">
               <button
+                ref={buttonRef}
                 className="w-full h-12 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg transition-colors 
                                shadow-md hover:shadow-lg transform hover:-translate-y-0.5 duration-200"
               >
