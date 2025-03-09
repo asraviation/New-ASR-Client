@@ -53,7 +53,7 @@ const ExperienceSection = () => {
   }, []);
 
   return (
-    <div className="bg-white py-8 px-8 shadow-lg w-full">
+    <div className="bg-white py-8 px-8 shadow-lg w-full z-0">
       <h1
         className="text-4xl font-bold text-center bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent"
         ref={h1Ref}
