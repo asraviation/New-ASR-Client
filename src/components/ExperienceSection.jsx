@@ -15,7 +15,7 @@ const ExperienceSection = () => {
     const ctx = gsap.context(() => {
       tl.from([h1Ref.current], {
         opacity: 0,
-        x: -1000,
+        y: -100,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,
@@ -31,7 +31,7 @@ const ExperienceSection = () => {
 
       tl.from([paraRef.current], {
         opacity: 0,
-        x: -800,
+        y: -80,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,

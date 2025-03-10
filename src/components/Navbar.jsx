@@ -7,6 +7,7 @@ import homeIcon from "../images/home.png";
 import fleetIcon from "../images/fleet.png";
 import aboutIcon from "../images/about.png";
 import contactIcon from "../images/contact.png";
+import logoasr from "../images/logo-asr.png"
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -140,7 +141,8 @@ const Navbar = () => {
           className="flex items-center space-x-2 text-gray-900"
           ref={logoRef}
         >
-          <img src={logo} alt="Logo" className="h-20 w-auto" />
+          <img src={logoasr} alt="Logo" className="h-10 w-auto" />
+          <h3 className="text-yellow-500">ASR AVIATION</h3>
         </div>
 
         {/* Desktop Navigation */}

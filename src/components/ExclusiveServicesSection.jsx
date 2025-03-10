@@ -74,7 +74,7 @@ const ExclusiveServicesSection = () => {
     const ctx = gsap.context(() => {
       tl.from([servicesh1Ref.current], {
         opacity: 0,
-        y: -100,
+        y: -10,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,
@@ -89,7 +89,7 @@ const ExclusiveServicesSection = () => {
 
       tl.from([servicesimgRef.current], {
         opacity: 0,
-        x: -100,
+        x: -50,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,

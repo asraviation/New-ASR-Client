@@ -6,6 +6,7 @@ import Calendar from "./Calender";
 
 // Using your existing icon imports
 import aircraftImage from "../images/air.png";
+import aircraftImage2 from "../images/planes/air2.png";
 import FlightIcon from "../images/plane.png";
 import SeatIcon from "../images/seat1.png";
 import WhereIcon from "../images/planeoff.png";
@@ -282,7 +283,7 @@ const HeroSection = () => {
       {/* Background Image - Full private jet with mountains */}
       <img
         ref={backgroundRef}
-        src={aircraftImage}
+        src={aircraftImage2}
         alt="Private Jet with Mountain Backdrop"
         className="absolute w-full h-full object-cover"
       />
@@ -295,7 +296,7 @@ const HeroSection = () => {
         {/* Booking Panel */}
         <div
           ref={bookingPanelRef}
-          className="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-lg p-8 w-full max-w-5xl"
+          className="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl shadow-lg p-8 w-full max-w-5xl mt-17"
         >
           {/* Top Row: Charter/Seat Selection and Trip Type */}
           <div
@@ -472,35 +473,35 @@ const HeroSection = () => {
               />
             </div>
 
-            {/* Date */}
             <div className="relative group">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
-                <img
-                  src={DateIcon}
-                  alt="Date"
-                  className="w-5 h-5 text-gray-400 transition-all duration-200 group-focus-within:text-amber-500"
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Select date"
-                className="w-full h-12 pl-12 pr-4 bg-gray-50 rounded-lg border-2 border-transparent 
-                          focus:border-[rgba(246,226,150,1)] focus:ring-0 focus:outline-none focus:bg-white 
-                          transition-all duration-200 hover:bg-gray-100 cursor-pointer"
-                value={dateValue}
-                onClick={toggleCalendar}
-                readOnly
-              />
-              {showCalendar && (
-                <div
-                  ref={calendarRef}
-                  className="absolute top-full left-0 mt-2 z-50"
-                  style={{ width: "280px" }}
-                >
-                  <CalendarWrapper onSelectDate={handleDateSelection} />
-                </div>
-              )}
-            </div>
+  <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
+    <img
+      src={DateIcon}
+      alt="Date"
+      className="w-5 h-5 text-gray-400 transition-all duration-200 group-focus-within:text-amber-500"
+    />
+  </div>
+  <input
+    type="text"
+    placeholder="Select date"
+    className="w-full h-12 pl-12 pr-4 bg-gray-50 rounded-lg border-2 border-transparent 
+              focus:border-[rgba(246,226,150,1)] focus:ring-0 focus:outline-none focus:bg-white 
+              transition-all duration-200 hover:bg-gray-100 cursor-pointer"
+    value={dateValue}
+    onClick={toggleCalendar}
+    readOnly
+  />
+  {showCalendar && (
+    <div
+      ref={calendarRef}
+      className="absolute bottom-full right-0 mb-2 z-50"
+      style={{ width: "280px" }}
+    >
+      <CalendarWrapper onSelectDate={handleDateSelection} />
+    </div>
+  )}
+</div>
+
 
             {/* Book Now Button */}
             <Link to="/form" className="block">

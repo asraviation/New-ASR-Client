@@ -24,7 +24,7 @@ const FeaturedDealsSection = () => {
     const ctx = gsap.context(() => {
       tl.from([featureDealsTitleRef.current], {
         opacity: 0,
-        y: -100,
+        x: -100,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,
@@ -54,7 +54,7 @@ const FeaturedDealsSection = () => {
 
       tl.from([communityyRef.current], {
         opacity: 0,
-        x: -1000,
+        y: -100,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,
@@ -70,7 +70,7 @@ const FeaturedDealsSection = () => {
 
       tl.from([communityparaRef.current], {
         opacity: 0,
-        x: -800,
+        y: -8,
         duration: 0.5,
         ease: "sine.out",
         stagger: 0.2,
@@ -86,7 +86,7 @@ const FeaturedDealsSection = () => {
 
       tl.from([communityButtonRef.current], {
         opacity: 0,
-        x: -800,
+        y: -4,
         duration: 0.5,
         ease: "sine.out",
         scrollTrigger: {
