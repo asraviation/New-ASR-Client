@@ -13,7 +13,6 @@ const Fleet = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Refs
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
@@ -23,12 +22,11 @@ const Fleet = () => {
   const modalContentRef = useRef(null);
   const carouselRef = useRef(null);
 
-  // Handle card click - now opens a modal instead of expanding in-place
   const handleCardClick = (id) => {
     setExpandedCard(id);
-    setCurrentImageIndex(0); // Reset carousel to first image
+    setCurrentImageIndex(0);
     setModalOpen(true);
-    document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+    document.body.style.overflow = "hidden"; 
   };
 
   // Close modal
@@ -49,7 +47,7 @@ const Fleet = () => {
         onComplete: () => {
           setModalOpen(false);
           setExpandedCard(null);
-          document.body.style.overflow = "auto"; // Re-enable scrolling
+          document.body.style.overflow = "auto"; 
         },
       },
       "-=0.1"
@@ -629,7 +627,7 @@ const Fleet = () => {
         {/* CTA Section */}
         <div className="mt-16 text-center cta-section">
           <p className="text-gray-600 mb-4">
-            Don't see what you're looking for? We have access to a wide range of
+            Don&apos;t see what you&apos;re looking for? We have access to a wide range of
             aircraft on demand.
           </p>
           <button
@@ -711,11 +709,11 @@ const Fleet = () => {
             </div>
 
             {/* Right side - Content */}
-            <div className="md:w-1/2 p-6 md:p-8 overflow-y-auto">
+            <div className="md:w-1/2 p-6 pt-20 md:p-8 overflow-y-auto">
               <h2 className="text-3xl font-medium text-gray-900 mb-3">
                 {fleetData.find((item) => item.id === expandedCard)?.title}
               </h2>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700 mb-6 hidden md:block">
                 {
                   fleetData.find((item) => item.id === expandedCard)
                     ?.description
